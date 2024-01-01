@@ -1,10 +1,21 @@
-import { validationResult } from "express-validator";
+import { User } from "../models/User.js";
 
-export const register = (req, res) => {
-    console.log(req.body);
-    res.json({ok: true});
+export const register = async(req, res) => {
+    const {email, password} = req.body;
+    try{
+        const user = new User({email, password});
+        console.log(user);
+        await user.save();
+
+        // jwt token
+
+        return res.json({ok: true});
+
+    }catch(error){
+        console.log(error);
+    }
 };
 
-export const login = (req, res) => {
-    res.json({ok: true});
+export const login = async(req, res) => {
+    res.json({ok: "Login"});
 };
