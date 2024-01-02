@@ -49,9 +49,9 @@ export const login = async(req, res) => {
 
 export const infoUser = async(req, res) => {
     try{
-        const user = await User.findById(req.uid);
-        res.json({user});
+        const user = await User.findById(req.uid).lean();
+        res.json({ email: user.email, uid: user._id });
     }catch(error){
-
+        return res.status(500).json({error: "server error"})
     };
 }
