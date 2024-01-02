@@ -3,8 +3,14 @@ import Jwt from "jsonwebtoken";
 export const requireToken = (req, res, next) => {
     try{
         //console.log(req.headers);
-        const token = req.headers?.authorization;
-        if(!token) throw new Error("the token doesn't exists, use Bearer.");
+        let token = req.headers?.authorization;
+        if(!token) 
+            throw new Error("the token doesn't exists, use Bearer.");
+        
+        token = token.split(" ")[1];
+        const payload = Jwt.verify(token, process.env.JWT_SECRET);
+        console.log(payload);
+
         next();
     }catch(error){
         console.log(error);
