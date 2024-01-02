@@ -1,3 +1,13 @@
+const logout = document.getElementById("logout");
+
+logout.addEventListener("click", async() => {
+    const res = await fetch("/api/v1/auth/logout", {
+        method: "GET",
+    });
+
+    console.log(res);
+})
+
 document.addEventListener("DOMContentLoaded", async (e) => {
     try{
 

@@ -68,9 +68,14 @@ export const refreshToken = (req, res) => {
 
         const { token, expiresIn } = generateToken(uid);
 
-        return res.json({ token, expiresIn })
+        return res.json({ token, expiresIn });
     }catch(err){
-        return res.status(401).send({error: err.message})
+        return res.status(401).send({error: err.message});
     }
 
-}
+};
+
+export const logout = (req, res) => {
+    res.clearCookie("refreshToken");
+    res.json({ok: true});
+};
