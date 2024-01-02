@@ -48,5 +48,10 @@ export const login = async(req, res) => {
 
 
 export const infoUser = async(req, res) => {
-    res.json({user: "correo@gmai.com"})
+    try{
+        const user = await User.findById(req.uid);
+        res.json({user});
+    }catch(error){
+
+    };
 }

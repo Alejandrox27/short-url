@@ -8,8 +8,9 @@ export const requireToken = (req, res, next) => {
             throw new Error("the token doesn't exists, use Bearer.");
         
         token = token.split(" ")[1];
-        const payload = Jwt.verify(token, process.env.JWT_SECRET);
-        console.log(payload);
+        const {uid} = Jwt.verify(token, process.env.JWT_SECRET);
+        
+        req.uid = uid;
 
         next();
     }catch(error){
