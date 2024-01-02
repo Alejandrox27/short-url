@@ -30,6 +30,10 @@ userSchema.pre("save", async function (next){
         console.log(error);
         throw new Error("failed during the password hash");
     }
-})
+});
+
+userSchema.methods.comparePassword = async function(canditatePassword){
+    return await bcryptjs.compare(canditatePassword, this.password);
+};
 
 export const User = mongoose.model("User", userSchema);
