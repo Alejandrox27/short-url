@@ -7,7 +7,7 @@ const router = Router();
 router.post("/login", [
     body("email", "Not correct email").trim().isEmail().normalizeEmail(),
     body("password", "Min 6 characters").trim().isLength({min:6}),
-], validationResultExpress, login)
+], validationResultExpress, login);
 
 router.post("/register", [
     body("email", "Not correct email").trim().isEmail().normalizeEmail(),
@@ -18,6 +18,4 @@ router.post("/register", [
         }
         return value;
     }),
-], validationResultExpress, register)
-
-export default router;
+], validationResultExpress, register);

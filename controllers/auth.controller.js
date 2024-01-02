@@ -1,4 +1,5 @@
 import { User } from "../models/User.js";
+import { generateToken } from "../utils/tokenManager.js";
 import jwt from "jsonwebtoken";
 
 export const register = async(req, res) => {
@@ -36,9 +37,9 @@ export const login = async(req, res) => {
         }
 
         // Generate token JWT
-        const token = jwt.sign({uid: user._id}, process.env.JWT_SECRET)
+        const {token, expiresIn} = generateToken(user.id) // or _id
 
-        return res.json({token});
+        return res.json({ token, expiresIn });
     }catch(error){
         console.log(error);
         return res.status(500).json({error: "server error"})
