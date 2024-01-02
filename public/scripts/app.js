@@ -17,9 +17,7 @@ form.addEventListener("submit", async (e) => {
         });
         if(!res.ok) return
             
-        const { token } = await res.json();
-
-        localStorage.setItem("token", token)
+        //const { token } = await res.json();
         
     }catch(error){
         console.log(error)

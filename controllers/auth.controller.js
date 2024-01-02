@@ -1,5 +1,5 @@
 import { User } from "../models/User.js";
-import { generateToken } from "../utils/tokenManager.js";
+import { generateRefreshToken, generateToken } from "../utils/tokenManager.js";
 import jwt from "jsonwebtoken";
 
 export const register = async(req, res) => {
@@ -37,12 +37,14 @@ export const login = async(req, res) => {
         }
 
         // Generate token JWT
-        const {token, expiresIn} = generateToken(user.id) // or _id
+        const {token, expiresIn} = generateToken(user.id); // or _id
+    
+        generateRefreshToken(user.id, res);
 
         return res.json({ token, expiresIn });
     }catch(error){
         console.log(error);
-        return res.status(500).json({error: "server error"})
+        return res.status(500).json({error: "server error"});
     }
 };
 
@@ -52,6 +54,23 @@ export const infoUser = async(req, res) => {
         const user = await User.findById(req.uid).lean();
         res.json({ email: user.email, uid: user._id });
     }catch(error){
-        return res.status(500).json({error: "server error"})
+        return res.status(500).json({error: "server error"});
     };
+}
+
+export const refreshToken = (req, res) => {
+
+    try{
+        const refreshTokenCookie = req.cookies.refreshToken;
+        if (!refreshTokenCookie) throw new Error("No Bearer");
+
+        const { uid } = jwt.verify(refreshTokenCookie, process.env.JWT_REFRESH);
+
+        const { token, expiresIn } = generateToken(uid);
+
+        return res.json({ token, expiresIn })
+    }catch(err){
+        return res.status(401).send({error: err.message})
+    }
+
 }

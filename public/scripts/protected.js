@@ -1,12 +1,20 @@
 document.addEventListener("DOMContentLoaded", async (e) => {
     try{
-        const token = localStorage.getItem("token");
+
+        const resToken = await fetch("/api/v1/auth/refresh", {
+            method: "GET",
+            credentials: "include",
+        });
+
+        const { token } = await resToken.json();
+
         const res = await fetch("/api/v1/auth/protected", {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
             },
+            credentials: "same-origin"
         });
 
         console.log(res.ok, res.status);
