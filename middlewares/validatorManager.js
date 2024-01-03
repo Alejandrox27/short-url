@@ -1,4 +1,4 @@
-import { validationResult, body } from "express-validator";
+import { validationResult, body, param } from "express-validator";
 import axios from "axios";
 
 const validationResultExpress = (req, res, next) => {
@@ -23,6 +23,10 @@ export const bodyRegisterValidator = [
     validationResultExpress
 ];
 
+export const paramsValidator = [
+    param("id", "Non valid format (express-validator)").trim().notEmpty().escape(),
+    validationResultExpress,
+]
 
 export const bodyLinkValidator = [
     body("longLink", "The URL is not valid").trim().notEmpty()

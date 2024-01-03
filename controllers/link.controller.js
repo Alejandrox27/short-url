@@ -12,7 +12,7 @@ export const getLinks = async (req, res) => {
     }
 };
 
-export const getLink = async (req, res) => {
+export const getLinkV1CRUD = async (req, res) => {
     try{
         const {id} = req.params;
         const link = await Link.findOne({_id : id, uid : req.uid});
@@ -50,9 +50,24 @@ export const deleteLink = async (req, res) => {
     try{
         const {id} = req.params;
 
-        Link.findOneAndDelete({ _id : id, uid : req.uid });
+        const link = await Link.findOneAndDelete({ _id : id, uid : req.uid });
 
         return res.status(204).json({ msg: "link deleted" });
+    }catch(error){
+        console.log(error);
+        return res.status(404).json({error: "That link doesn't exists"});
+    }
+}
+
+export const editLink = async (req, res) => {
+    try{
+        const { id } = req.params;
+        const { longLink } = req.body;
+
+        const link = await Link.findOneAndUpdate({ _id : id, uid : req.uid }, { longLink });
+        const newLink = await link.save();
+
+        return res.status(200).json(newLink);
     }catch(error){
         console.log(error);
         return res.status(404).json({error: "That link doesn't exists"});
