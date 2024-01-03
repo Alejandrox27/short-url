@@ -16,9 +16,10 @@ export const createLink = async (req, res) => {
     try{
         const { longLink } = req.body;
 
-        const link = new Link({longLink, nanoLink: nanoid(6), uid: req.uid})
+        const link = new Link({longLink, nanoLink: nanoid(6), uid: req.uid});
+        const newLink = await link.save();
 
-        return res.json({longLink})
+        return res.status(201).json({ newLink });
     }catch(error){
         console.log(error);
         return res.status(500).json({error: "Server error"});

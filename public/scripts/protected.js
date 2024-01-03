@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            credentials: "same-origin"
+            credentials: "include"
         });
 
         console.log(res.ok, res.status);

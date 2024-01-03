@@ -1,4 +1,5 @@
 import { validationResult, body } from "express-validator";
+import axios from "axios";
 
 const validationResultExpress = (req, res, next) => {
     const errors = validationResult(req);
@@ -21,6 +22,21 @@ export const bodyRegisterValidator = [
     }),
     validationResultExpress
 ];
+
+
+export const bodyLinkValidator = [
+    body("longLink", "The URL is not valid").trim().notEmpty()
+    .custom(async (value) => {
+        try{
+            await axios.get(value);
+            return value;
+        }catch(error){
+            console.log(error);
+            throw new Error("Not found longLink 404");
+        }
+    }),
+    validationResultExpress
+]
 
 export const bodyLoginValidator = [
     body("email", "Not correct email").trim().isEmail().normalizeEmail(),
