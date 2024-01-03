@@ -28,10 +28,17 @@ export const bodyLinkValidator = [
     body("longLink", "The URL is not valid").trim().notEmpty()
     .custom(async (value) => {
         try{
+            if (value.startsWith("http://")){
+                value = "https://" + value.slice(7)
+            }
+
+            if(!value.startsWith("https://")){
+                value = "https://" + value;
+            } 
+
             await axios.get(value);
             return value;
         }catch(error){
-            console.log(error);
             throw new Error("Not found longLink 404");
         }
     }),

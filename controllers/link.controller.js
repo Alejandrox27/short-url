@@ -12,9 +12,29 @@ export const getLinks = async (req, res) => {
     }
 };
 
+export const getLink = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const link = await Link.findOne({_id : id, uid : req.uid});
+
+        return res.json({link});
+    }catch(error){
+        console.log(error);
+        return res.status(404).json({error: "That link doesn't exists"});
+    }
+};
+
 export const createLink = async (req, res) => {
     try{
-        const { longLink } = req.body;
+        let { longLink } = req.body;
+
+        if (longLink.startsWith("http://")){
+            longLink = "https://" + longLink.slice(7)
+        }
+
+        if(!longLink.startsWith("https://")){
+            longLink = "https://" + longLink;
+        } 
 
         const link = new Link({longLink, nanoLink: nanoid(6), uid: req.uid});
         const newLink = await link.save();
