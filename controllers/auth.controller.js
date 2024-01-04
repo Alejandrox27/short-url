@@ -50,6 +50,9 @@ export const login = async(req, res) => {
     }
 };
 
+export const formLogin = (req, res) => {
+    res.render("login");
+}
 
 export const infoUser = async(req, res) => {
     try{
