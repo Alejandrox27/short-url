@@ -3,6 +3,7 @@ import LayoutRoot from "../layouts/LayoutRoot";
 import Home from "../pages/home";
 import LayoutPrivate from "../layouts/LayoutPrivate";
 import Dashboard from "../pages/Dashboard";
+import Login from "../pages/Login";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
                         element: <Dashboard />
                     }
                 ]
+            },
+            {
+                path: "/login",
+                element: <Login />
             }
         ]
     }
