@@ -4,7 +4,9 @@ import { nanoid } from "nanoid";
 export const getLinks = async (req, res) => {
     try{
         const links = await Link.find({uid: req.uid});
-        return res.render("home", {links: links});
+        return res.status(200).json({
+            links
+        });
 
     }catch(error){
         console.log(error);
