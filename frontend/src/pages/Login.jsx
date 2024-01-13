@@ -37,8 +37,10 @@ const Login = () => {
         })
 
         const {links} = await res.json();
+        localStorage.setItem("ulinks", JSON.stringify(links));
         setUser(true);
-        navigate('/dashboard', { state: {links: links} });
+        navigate('/dashboard');
+        //navigate('/dashboard', { state: {links: links} });
         
     }
 

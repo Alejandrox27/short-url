@@ -1,7 +1,21 @@
 import { useUserContext } from "../context/userContext";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-    const {user} = useUserContext();
+    const {user, setUser} = useUserContext();
+
+    const handleLogout = async () => {
+        const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+            credentials: "include"
+        });
+        const data = await res.json();
+
+        if(data.ok){
+            localStorage.removeItem("ulinks")
+            setUser(false);
+        }
+
+    }
 
     return (
         <>
@@ -13,13 +27,13 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <a className="nav-link active" aria-current="page" href="" id="home">Home</a>
+                        <NavLink className="nav-link active" aria-current="page" to="/" id="home">Home</NavLink>
                         {
-                            user && <a className="nav-link" href="/dashboard" id="dashboard">Dashboard</a>
+                            user && <NavLink className="nav-link" to="/dashboard" id="dashboard">Dashboard</NavLink>
                         }
-                        <a className="nav-link" href="/login" id="login">LogIn</a>
-                        <a className="nav-link" href="" id="logout">LogOut</a>
-                        <a className="nav-link" href="" id="register">Register</a>
+                        <NavLink className="nav-link" to="/login" id="login">LogIn</NavLink>
+                        <button onClick={handleLogout} className="nav-link text-start" id="logout">Logout</button>
+                        <NavLink className="nav-link" to="/register" id="register">Register</NavLink>
                     </div>
                 </div>
             </div>
