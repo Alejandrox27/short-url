@@ -7,8 +7,8 @@ const Login = () => {
     const {setUser} = useUserContext(); 
 
     const [form , setForm] = useState({
-        email: "",
-        password: "",
+        email: "john@gmail.com",
+        password: "1234567",
     })
 
     async function handleSubmit(e) {
@@ -21,7 +21,8 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(form)
+            body: JSON.stringify(form),
+            credentials: "include"
         });
 
         const {token} = await res.json();
@@ -31,12 +32,11 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`,
-            },
+            }
         })
 
         const {links} = await res.json();
         setUser(true);
-        console.log(links)
         navigate('/dashboard', { state: {links: links} });
         
     }
@@ -64,6 +64,7 @@ const Login = () => {
                         name="email"
                         id="email"
                         autoComplete="off"
+                        value={form.email}
                         onChange={handleChange}
                         />
                         <input 
@@ -71,6 +72,7 @@ const Login = () => {
                         placeholder="Password"
                         name="password"
                         id="password"
+                        value={form.password}
                         onChange={handleChange}
                         />
                         <button type="submit" id="login-button">Login</button>

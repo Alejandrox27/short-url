@@ -6,13 +6,11 @@ import cookieParser from "cookie-parser";
 import linkRouter from "./routes/link.route.js";
 import redirectRouter from "./routes/redirect.route.js";
 import cors from "cors";
-import { create } from "express-handlebars";
 import __dirname from "./utils/dirs.js";
-import path from "node:path";
 
 const app = express();
 
-const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2]
+const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2, process.env.ORIGIN3, process.env.ORIGIN4]
 
 app.use(cors({
     origin: function(origin, callback){
@@ -20,23 +18,14 @@ app.use(cors({
             return callback(null, origin);
         };
         return callback("CORS Error origin: " + origin + " non authorized.")
-    }},
+    }, 
+    credentials: true
+},
 ));
 
 app.use(express.json());
 
 app.use(cookieParser());
-
-const hbs = create({
-    extname: ".hbs",
-    partialsDir: ["views/components"],
-})
-
-app.engine(".hbs", hbs.engine);
-app.set("view engine", ".hbs");
-app.set("views", path.join(__dirname, "..", "views"));
-
-app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/", redirectRouter);
 app.use("/api/v1/auth", authRouter);
