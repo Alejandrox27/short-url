@@ -35,7 +35,9 @@ const Login = () => {
         })
 
         const {links} = await res.json();
-        navigate('/dashboard', { links });
+        setUser(true);
+        console.log(links)
+        navigate('/dashboard', { state: {links: links} });
         
     }
 
