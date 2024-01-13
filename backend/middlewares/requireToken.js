@@ -3,6 +3,7 @@ import Jwt from "jsonwebtoken";
 export const requireToken = (req, res, next) => {
     try{
         let token = req.headers?.authorization;
+        console.log("Received token: ", token);
         if(!token) throw new Error("the token doesn't exists, use Bearer.");
         
         token = token.split(" ")[1];

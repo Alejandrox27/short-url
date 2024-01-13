@@ -1,6 +1,5 @@
 import {Router} from "express";
 import { infoUser, login, register, refreshToken, logout, formLogin } from "../controllers/auth.controller.js";
-import { body } from "express-validator";
 import { requireToken } from "../middlewares/requireToken.js";
 import { requireRefreshToken } from "../middlewares/requireRefresh.js";
 import { bodyLoginValidator, bodyRegisterValidator } from "../middlewares/validatorManager.js";

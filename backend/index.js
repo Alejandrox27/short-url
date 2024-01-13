@@ -44,5 +44,5 @@ app.use("/api/v1/links", linkRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log("🔥🔥🔥 http://localhost:" + PORT)
+    console.log("🔥🔥🔥 http://127.0.0.1:" + PORT)
 })
