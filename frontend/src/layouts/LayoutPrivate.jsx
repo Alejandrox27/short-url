@@ -1,9 +1,14 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { useUserContext } from "../context/userContext";
 
 const LayoutPrivate = () => {
+    const {user} = useUserContext();
+
     return(
         <>
-        <Outlet />
+        {
+            user ? <Outlet /> : <Navigate to="/" />
+        }
         </>
     )
 };
