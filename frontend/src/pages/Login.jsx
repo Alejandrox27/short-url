@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 
 const Login = () => {
+    const navigate = useNavigate();
     const {setUser} = useUserContext(); 
 
     const [form , setForm] = useState({
@@ -32,8 +34,8 @@ const Login = () => {
             },
         })
 
-        const data = await res.json();
-        console.log(data);
+        const {links} = await res.json();
+        navigate('/dashboard', { links });
         
     }
 
