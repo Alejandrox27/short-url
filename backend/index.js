@@ -10,7 +10,7 @@ import __dirname from "./utils/dirs.js";
 
 const app = express();
 
-const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2, process.env.ORIGIN3, process.env.ORIGIN4]
+const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2, process.env.ORIGIN3]
 
 app.use(cors({
     origin: function(origin, callback){

@@ -16,7 +16,7 @@ const Login = () => {
 
         //TODO: validations
 
-        let res = await fetch("http://127.0.0.1:5000/api/v1/auth/login", {
+        let res = await fetch("http://localhost:5000/api/v1/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +32,8 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`,
-            }
+            },
+            credentials: "include"
         })
 
         const {links} = await res.json();
@@ -57,7 +58,7 @@ const Login = () => {
                 <h1>LogIn</h1>
 
                 <div className="container">
-                    <form onSubmit={handleSubmit} action="http://127.0.0.1:5000/api/v1/auth/login" method="post" id="form">
+                    <form onSubmit={handleSubmit} action="http://localhost:5000/api/v1/auth/login" method="post" id="form">
                         <input 
                         type="text"
                         placeholder="E-mail"
