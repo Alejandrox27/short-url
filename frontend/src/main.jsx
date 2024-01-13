@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import "./login.css"
+import './index.css';
+import "./login.css";
+import "./home.css";
 import { router } from './router'
 import { RouterProvider } from 'react-router-dom'
 import UserProvider from './context/userContext'

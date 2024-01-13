@@ -29,11 +29,17 @@ const Navbar = () => {
                     <div className="navbar-nav">
                         <NavLink className="nav-link active" aria-current="page" to="/" id="home">Home</NavLink>
                         {
-                            user && <NavLink className="nav-link" to="/dashboard" id="dashboard">Dashboard</NavLink>
+                            user && <>
+                            <NavLink className="nav-link" to="/dashboard" id="dashboard">Dashboard</NavLink>
+                            <button onClick={handleLogout} className="nav-link text-start" id="logout">Logout</button>
+                            </>
                         }
-                        <NavLink className="nav-link" to="/login" id="login">LogIn</NavLink>
-                        <button onClick={handleLogout} className="nav-link text-start" id="logout">Logout</button>
-                        <NavLink className="nav-link" to="/register" id="register">Register</NavLink>
+                        {
+                            !user && <>
+                            <NavLink className="nav-link" to="/login" id="login">LogIn</NavLink>
+                            <NavLink className="nav-link" to="/register" id="register">Register</NavLink>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
