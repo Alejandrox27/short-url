@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css';
 import "./login.css";
+import "./register.css";
 import "./home.css";
 import { router } from './router'
 import { RouterProvider } from 'react-router-dom'

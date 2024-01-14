@@ -2,7 +2,6 @@
 
 const Dashboard = () => {
     const links = localStorage.getItem("ulinks");
-    console.log(links);
 
     return (
         <>

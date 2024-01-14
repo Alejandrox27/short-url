@@ -1,0 +1,40 @@
+.great-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.error-messages{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.alert-danger{
+    width: 250px;
+    text-align: center;
+    height: 60px;
+    margin: 2px 0;
+    animation: animate1 1s ease
+}
+
+@keyframes animate1 {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 50;
+    }
+    100%{
+        opacity: 100;
+    }
+}

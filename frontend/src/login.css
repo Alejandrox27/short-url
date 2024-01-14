@@ -1,10 +1,3 @@
-
-.navbar{
-    z-index: 50;
-    position: fixed;
-    width: 100%;
-}
-
 form{
     min-width: 20%;
     display: flex;
@@ -54,10 +47,6 @@ form input:focus{
     align-items: center;
     width: 100%;
     height: 100vh;
-    
-    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url("../public/imgs/background-user.webp");
-    background-size: cover;
-    
 }
 
 .body-container{

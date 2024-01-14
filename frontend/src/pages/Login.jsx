@@ -15,33 +15,36 @@ const Login = () => {
         e.preventDefault();
 
         //TODO: validations
+        try{
+            let res = await fetch("http://localhost:5000/api/v1/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form),
+                credentials: "include"
+            });
 
-        let res = await fetch("http://localhost:5000/api/v1/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-            credentials: "include"
-        });
+            const {token} = await res.json();
 
-        const {token} = await res.json();
+            res = await fetch("http://localhost:5000/api/v1/links", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: "include"
+            })
 
-        res = await fetch("http://localhost:5000/api/v1/links", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`,
-            },
-            credentials: "include"
-        })
+            const {links} = await res.json();
+            localStorage.setItem("ulinks", JSON.stringify(links));
+            setUser(true);
+            navigate('/dashboard');
+            //navigate('/dashboard', { state: {links: links} });
 
-        const {links} = await res.json();
-        localStorage.setItem("ulinks", JSON.stringify(links));
-        setUser(true);
-        navigate('/dashboard');
-        //navigate('/dashboard', { state: {links: links} });
-        
+        }catch(error){
+            console.log(error);
+        }
     }
 
     function handleChange(e){

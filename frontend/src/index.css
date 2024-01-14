@@ -1,0 +1,18 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    z-index: 50;
+    position: fixed;
+    width: 100%;
+}
+
+#root{
+    height: 100%;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url("../public/imgs/background-user.webp");
+    background-size: cover;
+    background-repeat: repeat-y;
+}

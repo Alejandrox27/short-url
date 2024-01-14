@@ -12,6 +12,9 @@ export const register = async(req, res) => {
         await user.save();
 
         // jwt token
+
+        //Send email with verification with the token
+
         const {token, expiresIn} = generateToken(user.id);
         generateRefreshToken(user.id, res);
 

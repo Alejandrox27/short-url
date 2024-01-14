@@ -11,7 +11,7 @@ const Register = () => {
         email: "martin@mail.com",
         password: "1234567",
         repassword: "1234567",
-    })
+    });
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -24,7 +24,6 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //TODO: validations
         
         const res = await fetch("http://localhost:5000/api/v1/auth/register",{
             method: "POST",
@@ -42,21 +41,22 @@ const Register = () => {
             return;
         }
 
+        const data = await res.json();
+        
         Swal.fire({
             position: "center",
             icon: "warning",
             iconColor: "#F5E001",
             background: "#5E7A7C",
             color: "#FFF",
-            title: "That user already exists",
+            title: data?.error || data?.errors[0].msg,
             showConfirmButton: false,
             timer: 1500
           });
-        
     };
 
     return(
-        <div className="great">
+        <div className="great-register">
             <div className="container body-container">
                 
                 <h1>Register</h1>
