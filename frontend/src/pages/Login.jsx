@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -14,7 +15,6 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        //TODO: validations
         try{
             let res = await fetch("http://localhost:5000/api/v1/auth/login", {
                 method: "POST",
@@ -25,7 +25,22 @@ const Login = () => {
                 credentials: "include"
             });
 
-            const {token} = await res.json();
+            const data = await res.json();
+            if(data.errors || data.error){
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    iconColor: "#F5E001",
+                    background: "#5E7A7C",
+                    color: "#FFF",
+                    title: data?.error || data?.errors[0].msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                return;
+            }
+
+            const token = data.token;
 
             res = await fetch("http://localhost:5000/api/v1/links", {
                 method: "GET",

@@ -33,7 +33,8 @@ export const login = async(req, res) => {
         const {email, password} = req.body;
 
         let user = await User.findOne({email});
-        if(!user) return res.status(404).json({error: "Incorrect credentials"});
+
+        if(!user) return res.status(403).json({error: "Incorrect credentials"});
 
         const responsePassword = await user.comparePassword(password);
         if (!responsePassword){

@@ -7,7 +7,7 @@ export const generateToken = (uid) => {
         const token = jwt.sign({uid}, process.env.JWT_SECRET, { expiresIn });
         return {token, expiresIn}
     }catch(error){
-        console.log(error);
+        return res.status(401).json("Unauthorized user or user doesn't exists");
     }
 }
 
@@ -23,6 +23,6 @@ export const generateRefreshToken = (uid, res) => {
         });
 
     }catch(error){
-        console.log(error);
+        return res.status(401).json("Unauthorized user or user doesn't exists");
     }
 }
