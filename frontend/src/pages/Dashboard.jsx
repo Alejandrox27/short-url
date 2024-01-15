@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 
 const Dashboard = () => {
-
     const [longLink, setLongLink] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

@@ -29,11 +29,21 @@ export const register = async(req, res) => {
             }
           });
 
-        await transport.sendMail({
-        from: '"Fred Foo 👻"', // sender address
-        to: user.email, // list of receivers
-        subject: "Verify your User", // Subject line
-        html: `<a href="http://localhost:5000/api/v1/auth/verify/${token}">Verify user</a>`,
+        transport.sendMail({
+            from: 'alej.mejia89@gmail.com', // sender address
+            to: user.email, // list of receivers
+            subject: "Verify your User", // Subject line
+            html: `
+            <h1 style="text-align: center">Thank you for using my webpage</h1>
+            <h2 style="text-align: center">Made by: AlejandroDev</h2><br>
+            <p style="text-align: center"><a href="http://localhost:5000/api/v1/auth/verify/${token}">Verify user here</a></p>
+            <br>
+            <p>Github: <a href="https://github.com/Alejandrox27">https://github.com/Alejandrox27</a></p>
+            <p>Instagram: <a href="https://instagram.com/_alejandro_829">https://instagram.com/_alejandro_829</a></p>
+            <p>Facebook: <a href="https://www.facebook.com/didier.mejia.50746">https://www.facebook.com/didier.mejia.50746</a></p>
+            <p>Webpage: <a href="https://alejandrodev-website.netlify.app/">https://alejandrodev-website.netlify.app/</a></p>
+
+            `,
         });
 
         
