@@ -94,7 +94,7 @@ const Login = () => {
 
     return (
         <div className="great">
-            <div className="container body-container">
+            <div className="container body-login-container">
                 
                 <h1>LogIn</h1>
 
@@ -118,7 +118,7 @@ const Login = () => {
                         onChange={handleChange}
                         />
                         <button type="submit" id="login-button">Login</button>
-                        <div className="loading-container">
+                        <div className="loading-login-container">
                             {
                                 loading && <CircularProgress color="inherit" />
                             }

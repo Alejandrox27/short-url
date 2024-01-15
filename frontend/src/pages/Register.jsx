@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { CircularProgress } from "@mui/material";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Register = () => {
         repassword: "1234567",
     });
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -26,8 +27,11 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const res = await fetch("http://localhost:5000/api/v1/auth/register",{
+
+        try{
+            setLoading(true);
+
+            const res = await fetch("http://localhost:5000/api/v1/auth/register",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -55,11 +59,17 @@ const Register = () => {
             showConfirmButton: false,
             timer: 1500
           });
+
+        }catch(error){
+            console.log(error);
+        }finally{
+            setLoading(false);
+        }
     };
 
     return(
         <div className="great-register">
-            <div className="container body-container">
+            <div className="container body-register-container">
                 
                 <h1>Register</h1>
 
@@ -91,6 +101,11 @@ const Register = () => {
                         onChange={handleChange}
                         />
                         <button type="submit" id="login-button">Register</button>
+                        <div className="loading-register-container">
+                            {
+                                loading && <CircularProgress color="inherit" />
+                            }
+                        </div>
                     </form>
                 </div>
             </div>

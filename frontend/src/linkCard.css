@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 100%;
+    width: 100%;
     padding-left: 0px;
 }
 
@@ -11,7 +11,10 @@
     padding: 20px;
     margin-bottom: 10px;
     border-radius: 7px;
-    min-width: 80%;
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     height: fit-content;
 }
 
@@ -25,3 +28,29 @@
     max-width: 200px;
     justify-content: space-between;
 }
+
+.longlink-url{
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f3d9d9; 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #3c473f;
+    border-radius: 20px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5c5a5a;
+  }

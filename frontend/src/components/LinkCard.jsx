@@ -58,7 +58,7 @@ const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}
     return(
         <div className="link-card">
             <div className="body-link">
-                <h2>{longLink}</h2>
+                <h2 className="longlink-url">{longLink}</h2>
                 <a href={`http://127.0.0.1:5000/goto/${nanoLink}`}>http://127.0.0.1:5000/goto/{nanoLink}</a>
             </div>
             <div className="body-link-buttons">
