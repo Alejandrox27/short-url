@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import Swal from "sweetalert2";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -10,12 +11,15 @@ const Login = () => {
     const [form , setForm] = useState({
         email: "john@gmail.com",
         password: "1234567",
-    })
+    });
+
+    const [loading, setLoading] = useState(false);
 
     async function handleSubmit(e) {
         e.preventDefault();
 
         try{
+            setLoading(true);
             let res = await fetch("http://localhost:5000/api/v1/auth/login", {
                 method: "POST",
                 headers: {
@@ -59,6 +63,8 @@ const Login = () => {
 
         }catch(error){
             console.log(error);
+        } finally{
+            setLoading(false);
         }
     }
 
@@ -77,7 +83,7 @@ const Login = () => {
                 
                 <h1>LogIn</h1>
 
-                <div className="container">
+                <div className="container form-login-container">
                     <form onSubmit={handleSubmit} action="http://localhost:5000/api/v1/auth/login" method="post" id="form">
                         <input 
                         type="text"
@@ -97,6 +103,12 @@ const Login = () => {
                         onChange={handleChange}
                         />
                         <button type="submit" id="login-button">Login</button>
+                        <div className="loading-container">
+                            {
+                                loading && <CircularProgress color="inherit" />
+                            }
+                        </div>
+                        
                     </form>
                 </div>
 

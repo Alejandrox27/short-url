@@ -13,6 +13,8 @@ const Register = () => {
         repassword: "1234567",
     });
 
+    const [loading, setLoading] = useState(true);
+
     const handleChange = (e) => {
         const {name, value} = e.target;
 
