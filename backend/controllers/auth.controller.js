@@ -86,12 +86,12 @@ export const verifyUser = async(req, res) => {
     try{
         const {token} = req.params;
 
-        const {uid, verified} = Jwt.verify(token, process.env.JWT_SECRET);
+        const {uid} = Jwt.verify(token, process.env.JWT_SECRET);
 
         const user = await User.findByIdAndUpdate(uid, {verified: true});
         await user.save();
 
-        return res.redirect("http://localhost:5173/login")
+        return res.redirect("http://localhost:5173/dashboard")
     }catch(error){
         return res.status(500).json({error: "server error"});
     };

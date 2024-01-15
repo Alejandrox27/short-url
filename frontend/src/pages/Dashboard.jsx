@@ -13,6 +13,10 @@ const Dashboard = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
+    if (!localStorage.getItem("ulinks")){
+        localStorage.setItem("ulinks", JSON.stringify([]));
+    }
+
     const links = JSON.parse(localStorage.getItem("ulinks"));
 
     useEffect(() => {
