@@ -16,7 +16,8 @@ export const register = async(req, res) => {
         //Send email with verification with the token
 
         const {token, expiresIn} = generateToken(user.id, user.verified);
-        generateRefreshToken(user.id, res);
+
+        generateRefreshToken(user.id, user.verified, res);
 
         return res.status(201).json({token, expiresIn});
 
@@ -44,7 +45,7 @@ export const login = async(req, res) => {
         // Generate token JWT
         const {token, expiresIn} = generateToken(user.id, user.verified); // or _id
     
-        generateRefreshToken(user.id, res);
+        generateRefreshToken(user.id, user.verified, res);
 
         return res.json({ token, expiresIn });
     }catch(error){
@@ -63,9 +64,8 @@ export const infoUser = async(req, res) => {
 }
 
 export const refreshToken = (req, res) => {
-
     try{
-        const { token, expiresIn } = generateToken(req.uid);
+        const { token, expiresIn } = generateToken(req.uid, req.verified);
         return res.json({ token, expiresIn });
     }catch(err){
         return res.status(401).send({error: err.message});

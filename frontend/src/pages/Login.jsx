@@ -65,7 +65,7 @@ const Login = () => {
                     color: "#FFF",
                     title: data.error,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2500
                   });
                 return;
             }
