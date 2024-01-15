@@ -1,7 +1,6 @@
 const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}) => {
 
     const handleDelete = async(e) => {
-        console.log(e.target.id)
         try{
             setLoading(true);
             let res = await fetch("http://localhost:5000/api/v1/auth/refresh",

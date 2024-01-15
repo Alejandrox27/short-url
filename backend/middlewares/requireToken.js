@@ -6,13 +6,14 @@ export const requireToken = (req, res, next) => {
         if(!token) throw new Error("the token doesn't exists, use Bearer.");
         
         token = token.split(" ")[1];
-        const {uid} = Jwt.verify(token, process.env.JWT_SECRET);
+        const {uid, verified} = Jwt.verify(token, process.env.JWT_SECRET);
+
+        if (!verified) throw new Error("The user is not verified. Verify your account first with the email");
         
         req.uid = uid;
 
         next();
     }catch(error){
-        console.log(error.message);
-        return res.status(401).send({error: error.message});
+        return res.status(401).json({error: error.message});
     }
 }

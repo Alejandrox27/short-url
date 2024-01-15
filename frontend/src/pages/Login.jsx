@@ -29,7 +29,7 @@ const Login = () => {
                 credentials: "include"
             });
 
-            const data = await res.json();
+            let data = await res.json();
             if(data.errors || data.error){
                 Swal.fire({
                     position: "center",
@@ -53,7 +53,22 @@ const Login = () => {
                     'Authorization': `Bearer ${token}`,
                 },
                 credentials: "include"
-            })
+            });
+
+            if(!res.ok){
+                data = await res.json();
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    iconColor: "#F5E001",
+                    background: "#5E7A7C",
+                    color: "#FFF",
+                    title: data.error,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                return;
+            }
 
             const {links} = await res.json();
             localStorage.setItem("ulinks", JSON.stringify(links));

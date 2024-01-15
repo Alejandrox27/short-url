@@ -38,7 +38,6 @@ const Dashboard = () => {
 
             let data = await res.json();
             if (data.error){
-                console.log(data);
                 setError(data.error.msg);
             }
 
@@ -58,7 +57,6 @@ const Dashboard = () => {
 
             data = await res.json();
             if (data.error || data.errors){
-                console.log(data);
                 setError(data.errors[0].msg);
                 return
             };
@@ -114,7 +112,7 @@ const Dashboard = () => {
                                 loading && <CircularProgress />
                             }
                             {
-                                error && <p className="text-danger">{error}</p>
+                                error && <p className="text-danger ms-3">{error}</p>
                             }
                             {
                                 success && <p className="text-success">{success}</p>

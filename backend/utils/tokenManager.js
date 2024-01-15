@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = (uid) => {
+export const generateToken = (uid, verified) => {
     const expiresIn = 60 * 15
 
     try{
-        const token = jwt.sign({uid}, process.env.JWT_SECRET, { expiresIn });
+        const token = jwt.sign({uid, verified}, process.env.JWT_SECRET, { expiresIn });
         return {token, expiresIn}
     }catch(error){
         return res.status(401).json("Unauthorized user or user doesn't exists");
