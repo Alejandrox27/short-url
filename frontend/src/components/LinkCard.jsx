@@ -1,6 +1,9 @@
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}) => {
+
+    const navigate = useNavigate();
 
     const handleDelete = async(e) => {
         try{
@@ -57,6 +60,10 @@ const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}
         }
     }
 
+    const handleEdit = async(e) => {
+        navigate('/edit', { state: {id: e.target.id, longLinkUrl: longLink, nanoLink: nanoLink} });
+    }
+
     return(
         <div className="link-card">
             <div className="body-link">
@@ -65,7 +72,7 @@ const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}
             </div>
             <div className="body-link-buttons">
                 <button id={linkId} onClick={handleDelete} className="btn btn-danger">Delete</button>
-                <button id={linkId} className="btn btn-warning">Edit</button>
+                <button id={linkId} onClick={handleEdit} className="btn btn-warning">Edit</button>
                 <button id={linkId} onClick={async () => {
                     try{
                         await navigator.clipboard.writeText(`http://127.0.0.1:5000/goto/${nanoLink}`);

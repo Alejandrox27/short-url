@@ -72,7 +72,7 @@ const Register = () => {
             Swal.fire({
                 position: "center",
                 icon: "info",
-                iconColor: "#F5E001",
+                iconColor: "#00DEF6",
                 background: "#5E7A7C",
                 color: "#FFF",
                 title: "Verify your account with the email to enter.",
