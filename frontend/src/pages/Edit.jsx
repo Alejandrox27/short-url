@@ -79,7 +79,7 @@ const Edit = () => {
             navigate("/dashboard");
 
         }catch(error){
-            console.log(error);
+            setError(error.msg)
         } finally{
             setLoading(false);
         }

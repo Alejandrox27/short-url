@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css';
-import "./login.css";
-import "./register.css";
-import "./home.css";
+import './css/index.css';
+import "./css/login.css";
+import "./css/register.css";
+import "./css/home.css";
 import { router } from './router'
 import { RouterProvider } from 'react-router-dom'
 import UserProvider from './context/userContext'

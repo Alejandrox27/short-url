@@ -1,8 +1,8 @@
 //import {useLocation} from 'react-router-dom';
 
 import LinkCard from "../components/LinkCard";
-import "../linkCard.css";
-import "../dashboard.css"
+import "../css/linkCard.css";
+import "../css/dashboard.css"
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 
