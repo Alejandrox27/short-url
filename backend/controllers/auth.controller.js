@@ -1,5 +1,7 @@
 import { User } from "../models/User.js";
 import { generateRefreshToken, generateToken } from "../utils/tokenManager.js";
+import nodemailer from "nodemailer";
+import Jwt from "jsonwebtoken";
 
 export const register = async(req, res) => {
     const {email, password} = req.body;
@@ -13,11 +15,28 @@ export const register = async(req, res) => {
 
         // jwt token
 
-        //Send email with verification with the token
-
         const {token, expiresIn} = generateToken(user.id, user.verified);
 
         generateRefreshToken(user.id, user.verified, res);
+
+        // send email here:
+        var transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: process.env.USEREMAIL,
+              pass: process.env.PASSEMAIL,
+            }
+          });
+
+        await transport.sendMail({
+        from: '"Fred Foo 👻"', // sender address
+        to: user.email, // list of receivers
+        subject: "Verify your User", // Subject line
+        html: `<a href="http://localhost:5000/api/v1/auth/verify/${token}">Verify user</a>`,
+        });
+
+        
 
         return res.status(201).json({token, expiresIn});
 
@@ -58,6 +77,21 @@ export const infoUser = async(req, res) => {
     try{
         const user = await User.findById(req.uid).lean();
         res.json({ email: user.email, uid: user._id });
+    }catch(error){
+        return res.status(500).json({error: "server error"});
+    };
+}
+
+export const verifyUser = async(req, res) => {
+    try{
+        const {token} = req.params;
+
+        const {uid, verified} = Jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findByIdAndUpdate(uid, {verified: true});
+        await user.save();
+
+        return res.redirect("http://localhost:5173/login")
     }catch(error){
         return res.status(500).json({error: "server error"});
     };

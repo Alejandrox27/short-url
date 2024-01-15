@@ -31,7 +31,7 @@ const Register = () => {
         try{
             setLoading(true);
 
-            const res = await fetch("http://localhost:5000/api/v1/auth/register",{
+            let res = await fetch("http://localhost:5000/api/v1/auth/register",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,25 +40,51 @@ const Register = () => {
             credentials: "include"
         });
 
-        if(res.ok){
-            setUser(true);
-            localStorage.setItem("ulinks", JSON.stringify([]))
-            navigate("/dashboard")
+        let data = await res.json();
+
+        if(!res.ok){
+            Swal.fire({
+                position: "center",
+                icon: "warning",
+                iconColor: "#F5E001",
+                background: "#5E7A7C",
+                color: "#FFF",
+                title: data?.error || data?.errors[0].msg,
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
-        const data = await res.json();
-        
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            iconColor: "#F5E001",
-            background: "#5E7A7C",
-            color: "#FFF",
-            title: data?.error || data?.errors[0].msg,
-            showConfirmButton: false,
-            timer: 1500
-          });
+        const token = data.token;
+
+        res = await fetch("http://localhost:5000/api/v1/links", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`,
+            },
+            credentials: "include"
+        });
+
+        if(!res.ok){
+            data = await res.json();
+            Swal.fire({
+                position: "center",
+                icon: "info",
+                iconColor: "#F5E001",
+                background: "#5E7A7C",
+                color: "#FFF",
+                title: "Verify your account with the email to enter.",
+                showConfirmButton: false,
+                timer: 2500
+                });
+            return;
+        }
+
+        setUser(true);
+        localStorage.setItem("ulinks", JSON.stringify([]))
+        navigate("/dashboard")
 
         }catch(error){
             console.log(error);
