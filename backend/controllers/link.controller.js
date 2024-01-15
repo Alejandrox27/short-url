@@ -56,7 +56,6 @@ export const deleteLink = async (req, res) => {
 
         return res.status(204).json({ msg: "link deleted" });
     }catch(error){
-        console.log(error);
         return res.status(404).json({error: "That link doesn't exists"});
     }
 }

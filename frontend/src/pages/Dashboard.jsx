@@ -76,7 +76,7 @@ const Dashboard = () => {
             if (data.errors || data.error){
                 console.log("error")
             }
-            
+
             const links = JSON.stringify(data.links)
             localStorage.setItem("ulinks", links);
 
@@ -125,7 +125,16 @@ const Dashboard = () => {
                 <ul className="links-list">
                     {
                         links.map((link, index) => {
-                            return <LinkCard key={index} longLink={link.longLink} nanoLink={link.nanoLink} />
+                            return (
+                            <LinkCard 
+                            key={index} 
+                            linkId={link._id} 
+                            longLink={link.longLink} 
+                            nanoLink={link.nanoLink}
+                            setError={setError}
+                            setSuccess={setSuccess}
+                            setLoading={setLoading}
+                            />)
                         })
                     }
                 </ul>
