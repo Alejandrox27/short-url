@@ -63,6 +63,23 @@ const Dashboard = () => {
                 return
             };
 
+            res = await fetch("http://localhost:5000/api/v1/links", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: "include"
+            });
+
+            data = await res.json();
+            if (data.errors || data.error){
+                console.log("error")
+            }
+            
+            const links = JSON.stringify(data.links)
+            localStorage.setItem("ulinks", links);
+
             setSuccess("URL added successfully")
 
         }catch(error){
