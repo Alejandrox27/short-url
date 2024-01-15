@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}) => {
 
     const handleDelete = async(e) => {
@@ -64,7 +66,32 @@ const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}
             <div className="body-link-buttons">
                 <button id={linkId} onClick={handleDelete} className="btn btn-danger">Delete</button>
                 <button id={linkId} className="btn btn-warning">Edit</button>
-                <button id={linkId} className="btn btn-info">Copy</button>
+                <button id={linkId} onClick={async () => {
+                    try{
+                        await navigator.clipboard.writeText(`http://127.0.0.1:5000/goto/${nanoLink}`);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            iconColor: "#F5E001",
+                            background: "#5E7A7C",
+                            color: "#FFF",
+                            title: "shortURL copied to clipboard",
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    }catch(err){
+                        Swal.fire({
+                            position: "center",
+                            icon: "warning",
+                            iconColor: "#F5E001",
+                            background: "#5E7A7C",
+                            color: "#FFF",
+                            title: "shortURL not copied to clipboard",
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    }
+                }} className="btn btn-info">Copy</button>
             </div>
         </div>
     )
