@@ -32,6 +32,8 @@
 
 .button-add-link{
     width: 30%;
+    margin-top: 0;
+    margin-right: 20px;
 }
 
 .input-add-longlink{
@@ -43,4 +45,12 @@
 .input-add-longlink:focus{
     outline: none;
     border: 5px solid #6ea8a8;
+}
+
+.add-button-and-loading{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin-top: 20px;
 }
