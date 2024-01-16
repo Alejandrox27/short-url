@@ -7,6 +7,8 @@ export const requireRefreshToken = (req, res, next) => {
     
         const { uid, verified } = jwt.verify(refreshTokenCookie, process.env.JWT_REFRESH);
 
+        if (!verified) throw new Error("User not verified");
+
         req.uid = uid;
         req.verified = verified;
         next();

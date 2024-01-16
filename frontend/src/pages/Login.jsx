@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import Swal from "sweetalert2";
@@ -17,6 +17,17 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     useRedirectActiveUser();
+
+    const reSendEmail = async() => {
+        await fetch("http://localhost:5000/api/v1/auth/resendemail",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form),
+            credentials: "include"
+        });
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -61,14 +72,30 @@ const Login = () => {
             if(!res.ok){
                 data = await res.json();
                 Swal.fire({
-                    position: "center",
+                    title: "User not verified",
+                    text: "Go to your email and verify your account",
                     icon: "warning",
                     iconColor: "#F5E001",
                     background: "#5E7A7C",
                     color: "#FFF",
-                    title: data.error,
-                    showConfirmButton: false,
-                    timer: 2500
+                    showCancelButton: false,
+                    confirmButtonColor: "#f59701",
+                    confirmButtonText: "re-send email"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        //send new verify email
+                        reSendEmail();
+
+                      Swal.fire({
+                        title: "New email sent",
+                        text: "Go to your email and verify your account.",
+                        icon: "success",
+                        iconColor: "#F5E001",
+                        background: "#5E7A7C",
+                        color: "#FFF",
+                        confirmButtonColor: "#f59701"
+                      });
+                    }
                   });
                 return;
             }

@@ -10,5 +10,5 @@ export const useRedirectActiveUser = () => {
         if(user){
             navigate("/dashboard");
         }
-    }, [user]);
+    }, []);
 }
