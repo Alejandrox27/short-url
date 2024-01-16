@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import Swal from "sweetalert2";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useRedirectActiveUser } from "../hooks/RedirectForActiveUser";
 
 const Login = () => {
     const navigate = useNavigate();
-    const {user, setUser} = useUserContext(); 
+    const {setUser} = useUserContext(); 
 
     const [form , setForm] = useState({
         email: "john@gmail.com",
@@ -15,11 +16,7 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if(user){
-            navigate("/dashboard");
-        }
-    }, [user]);
+    useRedirectActiveUser();
 
     async function handleSubmit(e) {
         e.preventDefault();

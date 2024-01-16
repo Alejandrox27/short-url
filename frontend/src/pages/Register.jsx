@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
+import { useRedirectActiveUser } from "../hooks/RedirectForActiveUser";
 
 const Register = () => {
     const navigate = useNavigate();
-    const {user, setUser} = useUserContext();
+    const {setUser} = useUserContext();
 
     const [form, setForm] = useState({
         email: "martin@mail.com",
@@ -16,11 +17,7 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if(user){
-            navigate("/dashboard");
-        }
-    }, [user]);
+    useRedirectActiveUser();
 
     const handleChange = (e) => {
         const {name, value} = e.target;
