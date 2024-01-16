@@ -16,10 +16,10 @@ const Home = () => {
                 <div className="social-media">
                     <h2>social media</h2>
                     <div className="social-media-icons">
-                        <a href="https://instagram.com/_alejandro_829"><FontAwesomeIcon className="icon" icon={faInstagram} /></a>
-                        <a href="https://www.facebook.com/didier.mejia.50746"><FontAwesomeIcon className="icon" icon={faFacebook} /></a>
-                        <a href="https://github.com/Alejandrox27"><FontAwesomeIcon className="icon" icon={faGithub} /></a>
-                        <a href="mailto:alej.mejia89@gmail.com"><FontAwesomeIcon className="icon" icon={faEnvelope} /></a>
+                        <a href="https://instagram.com/_alejandro_829" ><FontAwesomeIcon className="icon" icon={faInstagram} /></a>
+                        <a href="https://www.facebook.com/didier.mejia.50746" ><FontAwesomeIcon className="icon" icon={faFacebook} /></a>
+                        <a href="https://github.com/Alejandrox27" ><FontAwesomeIcon className="icon" icon={faGithub} /></a>
+                        <a href="mailto:alej.mejia89@gmail.com" ><FontAwesomeIcon className="icon" icon={faEnvelope} /></a>
                     </div>
                     
                 </div>

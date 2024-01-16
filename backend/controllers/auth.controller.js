@@ -101,6 +101,10 @@ export const verifyUser = async(req, res) => {
         const user = await User.findByIdAndUpdate(uid, {verified: true});
         await user.save();
 
+        const {token_generated, expiresIn} = generateToken(user.id, true); // or _id
+    
+        generateRefreshToken(user.id, true, res);
+
         return res.redirect("http://localhost:5173/dashboard")
     }catch(error){
         return res.status(500).json({error: "server error"});

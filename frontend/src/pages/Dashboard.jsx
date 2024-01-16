@@ -59,8 +59,9 @@ const Dashboard = () => {
             });
 
             data = await res.json();
+            
             if (data.error || data.errors){
-                setError(data.errors[0].msg);
+                setError(data);
                 return
             };
 
