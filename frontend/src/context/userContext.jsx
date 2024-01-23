@@ -1,31 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import useIfUserLogged from "../hooks/useIfUserLogged";
 
 export const UserContext = createContext();
 
 const UserProvider = ({children}) => {
-    const [user, setUser] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    const useIfUserLogged = useCallback(async() => {
-        const res = await fetch("http://localhost:5000/api/v1/auth/refresh",
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        });
-
-        const data = await res.json();
-        if (!data.error){
-            setUser(true);
-        }
-        setLoading(false);
-    });
-
-    useEffect(() => {
-        useIfUserLogged();
-    }, []);
+    const {loading, user, setUser} = useIfUserLogged()
 
     if (loading){
         return;
