@@ -1,10 +1,10 @@
 //import {useLocation} from 'react-router-dom';
 
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CircularProgress } from "@mui/material";
 import LinkCard from "../components/LinkCard";
 import "../css/linkCard.css";
 import "../css/dashboard.css"
-import { useEffect, useMemo, useRef, useState } from "react";
-import { CircularProgress } from "@mui/material";
 
 const Dashboard = () => {
     const [longLink, setLongLink] = useState("");
@@ -14,13 +14,9 @@ const Dashboard = () => {
     const links = useRef([]);
 
     useMemo(() => {
-        
         links.current = localStorage.getItem("ulinks") ? 
         JSON.parse(localStorage.getItem("ulinks")) : [];
-
     }, [links.current])
-    
-    console.log(links)
     
     useEffect(() => {
         setTimeout(() => {
