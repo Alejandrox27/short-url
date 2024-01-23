@@ -3,7 +3,7 @@
 import LinkCard from "../components/LinkCard";
 import "../css/linkCard.css";
 import "../css/dashboard.css"
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
 
 const Dashboard = () => {
@@ -11,13 +11,17 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const links = useRef([]);
 
-    if (!localStorage.getItem("ulinks")){
-        localStorage.setItem("ulinks", JSON.stringify([]));
-    }
+    useMemo(() => {
+        
+        links.current = localStorage.getItem("ulinks") ? 
+        JSON.parse(localStorage.getItem("ulinks")) : [];
 
-    const links = JSON.parse(localStorage.getItem("ulinks"));
-
+    }, [links.current])
+    
+    console.log(links)
+    
     useEffect(() => {
         setTimeout(() => {
             setError(null);
@@ -79,8 +83,9 @@ const Dashboard = () => {
                 console.log("error")
             }
 
-            const links = JSON.stringify(data.links)
-            localStorage.setItem("ulinks", links);
+            const NewLinks = JSON.stringify(data.links)
+            localStorage.setItem("ulinks", NewLinks);
+            links.current = JSON.parse(localStorage.getItem("ulinks"));
 
             setSuccess("URL added successfully")
 
@@ -126,13 +131,14 @@ const Dashboard = () => {
                 </div>
                 <ul className="links-list">
                     {
-                        links.map((link, index) => {
+                        links.current.map((link, index) => {
                             return (
                             <LinkCard 
                             key={index} 
                             linkId={link._id} 
                             longLink={link.longLink} 
                             nanoLink={link.nanoLink}
+                            links={links.current}
                             setError={setError}
                             setSuccess={setSuccess}
                             setLoading={setLoading}

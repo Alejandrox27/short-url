@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}) => {
+const LinkCard = ({linkId, longLink, nanoLink, links, setError, setSuccess, setLoading}) => {
 
     const navigate = useNavigate();
 
@@ -46,10 +46,11 @@ const LinkCard = ({linkId, longLink, nanoLink, setError, setSuccess, setLoading}
                     "Authorization": `Bearer ${token}` 
                 },
                 credentials: "include"
-            });
+                });
 
-            const {links} = await res.json();
-            localStorage.setItem("ulinks", JSON.stringify(links));
+            const {links: newLinks} = await res.json();
+            localStorage.setItem("ulinks", JSON.stringify(newLinks));
+            links = newLinks
 
             setSuccess("URL deleted correctly")
             
