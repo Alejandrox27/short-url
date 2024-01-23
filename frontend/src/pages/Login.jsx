@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useRedirectActiveUser } from "../hooks/RedirectForActiveUser";
 import reSendEmail from "../hooks/useResendEmail";
+import useLinksToLocalStorageAndRedirect from "../hooks/setLinksToLocalstorageAndRedirect";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -15,7 +16,6 @@ const Login = () => {
         email: "john@gmail.com",
         password: "1234567",
     });
-
 
     useCallback(useRedirectActiveUser(), [])
 
@@ -91,10 +91,8 @@ const Login = () => {
             }
 
             const {links} = await res.json();
-            localStorage.setItem("ulinks", JSON.stringify(links));
-            setUser(true);
-            navigate('/dashboard');
-            //navigate('/dashboard', { state: {links: links} });
+
+            useLinksToLocalStorageAndRedirect({setUser, links, navigate});
 
         }catch(error){
             console.log(error);

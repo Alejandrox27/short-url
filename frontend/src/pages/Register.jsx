@@ -85,8 +85,8 @@ const Register = () => {
             return;
         }
 
-        setUser(true);
         localStorage.setItem("ulinks", JSON.stringify([]))
+        setUser(true);
         navigate("/dashboard")
 
         }catch(error){
