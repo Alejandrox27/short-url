@@ -85,9 +85,8 @@ const Register = () => {
             return;
         }
 
-        localStorage.setItem("ulinks", JSON.stringify([]))
-        setUser(true);
-        navigate("/dashboard")
+        const links = [];
+        useLinksToLocalStorageAndRedirect({setUser, links, navigate});
 
         }catch(error){
             console.log(error);
