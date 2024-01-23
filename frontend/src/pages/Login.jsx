@@ -1,33 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import Swal from "sweetalert2";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useRedirectActiveUser } from "../hooks/RedirectForActiveUser";
+import reSendEmail from "../hooks/useResendEmail";
 
 const Login = () => {
     const navigate = useNavigate();
     const {setUser} = useUserContext(); 
-
+    
+    const [loading, setLoading] = useState(false);
     const [form , setForm] = useState({
         email: "john@gmail.com",
         password: "1234567",
     });
 
-    const [loading, setLoading] = useState(false);
 
-    useRedirectActiveUser();
-
-    const reSendEmail = async() => {
-        await fetch("http://localhost:5000/api/v1/auth/resendemail",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(form),
-            credentials: "include"
-        });
-    };
+    useCallback(useRedirectActiveUser(), [])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -84,7 +74,7 @@ const Login = () => {
                   }).then((result) => {
                     if (result.isConfirmed) {
                         //send new verify email
-                        reSendEmail();
+                        reSendEmail({form});
 
                       Swal.fire({
                         title: "New email sent",

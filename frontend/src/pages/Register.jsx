@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useUserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
 import { useRedirectActiveUser } from "../hooks/RedirectForActiveUser";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
 
-    useRedirectActiveUser();
+    useCallback(useRedirectActiveUser(), [])
 
     const handleChange = (e) => {
         const {name, value} = e.target;
