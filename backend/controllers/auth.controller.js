@@ -7,9 +7,6 @@ export const register = async(req, res) => {
     const {email, password} = req.body;
     try{
         
-        //let user = await User.findOne({email});
-        //if (user) throw ({code: 11000});
-        
         const user = new User({email, password});
         await user.save();
 

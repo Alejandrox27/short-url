@@ -5,10 +5,12 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import linkRouter from "./routes/link.route.js";
 import redirectRouter from "./routes/redirect.route.js";
+import helmet from "helmet";
 import cors from "cors";
 import __dirname from "./utils/dirs.js";
 
 const app = express();
+
 
 const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2, process.env.ORIGIN3]
 
@@ -22,6 +24,8 @@ app.use(cors({
     credentials: true
 },
 ));
+
+app.use(helmet());
 
 app.use(express.json());
 
