@@ -80,6 +80,51 @@ form input:focus{
     z-index: -1;
 }
 
+.email-input-label{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.email-input-label label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    transition: .3s;
+    pointer-events: none;
+}
+
+.email-input-label input:not(:placeholder-shown) ~ label {
+    top: 0;
+    font-size: 15px;
+}
+
+.password-input-label{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.password-input-label label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    transition: .3s;
+    pointer-events: none;
+}
+
+.password-input-label input:not(:placeholder-shown) ~ label {
+    top: 0;
+    font-size: 15px;
+}
+
 @media(max-width: 920px){
     .body-login-container{
         width: 90%;

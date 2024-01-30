@@ -118,23 +118,29 @@ const Login = () => {
 
                 <div className="container form-login-container">
                     <form onSubmit={handleSubmit} action="http://localhost:5000/api/v1/auth/login" method="post" id="form">
-                        <input 
-                        type="text"
-                        placeholder="E-mail"
-                        name="email"
-                        id="email"
-                        autoComplete="off"
-                        value={form.email}
-                        onChange={handleChange}
-                        />
-                        <input 
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        id="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        />
+                        <div className="email-input-label">
+                            <input 
+                            type="text"
+                            placeholder=""
+                            name="email"
+                            id="email"
+                            autoComplete="off"
+                            value={form.email}
+                            onChange={handleChange}
+                            />
+                            <label htmlFor="email">Email</label>
+                        </div>
+                        <div className="password-input-label">
+                            <input 
+                            type="password"
+                            placeholder=""
+                            name="password"
+                            id="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            />
+                            <label htmlFor="password">Password</label>
+                        </div>
                         <button type="submit" id="login-button">Login</button>
                         <div className="loading-login-container">
                             {
