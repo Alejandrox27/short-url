@@ -98,6 +98,11 @@ form input:focus{
     pointer-events: none;
 }
 
+.email-input-label input:focus ~ label {
+    top: 0;
+    font-size: 15px;
+}
+
 .email-input-label input:not(:placeholder-shown) ~ label {
     top: 0;
     font-size: 15px;
@@ -118,6 +123,11 @@ form input:focus{
     font-size: 18px;
     transition: .3s;
     pointer-events: none;
+}
+
+.password-input-label input:focus ~ label {
+    top: 0;
+    font-size: 15px;
 }
 
 .password-input-label input:not(:placeholder-shown) ~ label {
